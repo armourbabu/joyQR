@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Form</title>
 </head>
 <body>
-    <center><form method="POST" action="">
+    <form method="POST" action="">
         {{ form.hidden_tag() }}
         {{ form.url.label }} {{ form.url }}
         {{ form.submit }}
     </form>
-    </center>
 </body>
 </html>
