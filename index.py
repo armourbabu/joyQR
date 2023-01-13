@@ -16,15 +16,15 @@ class QRForm(FlaskForm):
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/qr', methods=['GET', 'POST'])
 def qr_code():
-    if request.method == 'POST':
-        data = request.get_json()
-        url = data['url']
-    elif request.method == 'GET':
-        url = request.args.get('url')
-
     form = QRForm()
     if form.validate_on_submit():
         url = form.url.data
+    elif request.method == 'GET':
+        url = request.args.get('url')
+    elif request.method == 'POST':
+        data = request.get_json()
+        url = data['url']
+
         qr = qrcode.QRCode(version=1, box_size=10, border=2)
         qr.add_data(url)
         qr.make(fit=True)
