@@ -18,7 +18,6 @@ class QRForm(FlaskForm):
 def qr_code():
     form = QRForm()
     if form.validate_on_submit():
->>>>>>> parent of 15700f2 (Update index.py)
         url = form.url.data
         qr = qrcode.QRCode(version=1, box_size=10, border=2)
         qr.add_data(url)
