@@ -50,5 +50,26 @@ def qr_code():
         return response
     return render_template('qr_form.html', form=form)
 
+
+@app.route('/qrapi', methods=['GET', 'POST'])
+def qrapi_code():
+    if request.method == 'POST':
+        data = request.get_json()
+        url = data['url']
+    elif request.method == 'GET':
+        url = request.args.get('url')
+    
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    img_io = BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+    response = make_response(img_io.read())
+    response.headers.set('Content-Type', 'image/png')
+    response.headers.set('Content-Disposition', 'attachment', filename='qr.png')
+    return response
+
 if __name__ == '__main__':
     app.run()
