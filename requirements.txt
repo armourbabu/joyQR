@@ -1,0 +1,4 @@
+Flask==2.2.2
+WTForms==3.0.1
+Pillow==9.4.0
+Flask-WTF==1.0.1
